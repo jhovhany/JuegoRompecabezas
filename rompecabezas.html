@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Rompecabezas</title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=0.5">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<link rel="stylesheet" type="text/css" href="css/main.css">
+	
+	<script type="text/javascript">		
+		function getData(){
+				if (location.search.length > 0){
+				dataPassed = unescape(location.search.substring(1))
+				tempArray1=dataPassed.split("&") // split the string at character & and create an array of values
+					for(i=0;i<tempArray1.length-1;i++){ // get value at array index i (name=value)
+					tempArray2=tempArray1[i].split("=") // split the string at character =
+					document.f1.elements["text"+(i+1)].value=tempArray2[1] // assign the value
+					}
+				}
+		}
+
+		myString=""
+
+		function passdata(){
+			myForm=document.f1
+			for(i=0;i<myForm.length-1;i++){ // run through form elements
+			myString+=add_delimiters(myForm.elements[i].name,myForm.elements[i].value) // get element name and value
+
+			location.href = 'felicidades.html' + '?' + escape(myString)
+		}
+
+		function add_delimiters(n,v){
+			if(n!=""){ // add = and & characters to identify name and value pairs
+			return n+"="+v+"&"
+			}
+		}
+
+		}
+	</script>
+</head>
+
+<body onload="getData();">
+	
+<form name="f1">
+            Nombre: <input id="text1" type="text" name="text1">
+            Ganarás: <input id="text2" type="text" name="text2">
+            <input type="button" value="Bienvenido" onclick="passdata()" style="display: none;">           
+</form>
+
+<svg width ="1000" height="700" id="entorno">
+		<g id="fondo"><image xlink:href="img/rompecabezas.jpg" widht="600" height="600"x="200" y="10"></g>
+		<g class="padre" id="0"><image xlink:href="img/1.png" class="movil"></g>
+		<g class="padre" id="1"><image xlink:href="img/2.png" class="movil"></g>
+		<g class="padre" id="2"><image xlink:href="img/3.png" class="movil"></g>
+		<g class="padre" id="3"><image xlink:href="img/4.png" class="movil"></g>
+		<g class="padre" id="4"><image xlink:href="img/5.png" class="movil"></g>
+		<g class="padre" id="5"><image xlink:href="img/6.png" class="movil"></g>
+		<g class="padre" id="6"><image xlink:href="img/7.png" class="movil"></g>
+		<g class="padre" id="7"><image xlink:href="img/8.png" class="movil"></g>
+		<g class="padre" id="8"><image xlink:href="img/9.png" class="movil"></g>
+		<g class="padre" id="9"><image xlink:href="img/10.png" class="movil"></g>
+		<g class="padre" id="10"><image xlink:href="img/11.png" class="movil"></g>
+		<g class="padre" id="11"><image xlink:href="img/12.png" class="movil"></g>
+		<g class="padre" id="12"><image xlink:href="img/13.png" class="movil"></g>
+		<g class="padre" id="13"><image xlink:href="img/14.png" class="movil"></g>
+		<g class="padre" id="14"><image xlink:href="img/15.png" class="movil"></g>
+		<g class="padre" id="15"><image xlink:href="img/16.png" class="movil"></g>
+		<g class="padre" id="16"><image xlink:href="img/17.png" class="movil"></g>
+		<g class="padre" id="17"><image xlink:href="img/18.png" class="movil"></g>
+		<g class="padre" id="18"><image xlink:href="img/19.png" class="movil"></g>
+		<g class="padre" id="19"><image xlink:href="img/20.png" class="movil"></g>
+		<g class="padre" id="20"><image xlink:href="img/21.png" class="movil"></g>
+		<g class="padre" id="21"><image xlink:href="img/22.png" class="movil"></g>
+		<g class="padre" id="22"><image xlink:href="img/23.png" class="movil"></g>
+		<g class="padre" id="23"><image xlink:href="img/24.png" class="movil"></g>
+		<g class="padre" id="24"><image xlink:href="img/25.png" class="movil"></g>
+		<g class="padre" id="25"><image xlink:href="img/26.png" class="movil"></g>
+		<g class="padre" id="26"><image xlink:href="img/27.png" class="movil"></g>
+		<g class="padre" id="27"><image xlink:href="img/28.png" class="movil"></g>
+		<g class="padre" id="28"><image xlink:href="img/29.png" class="movil"></g>
+		<g class="padre" id="29"><image xlink:href="img/30.png" class="movil"></g>
+		<g class="padre" id="30"><image xlink:href="img/31.png" class="movil"></g>
+		<g class="padre" id="31"><image xlink:href="img/32.png" class="movil"></g>
+		<g class="padre" id="32"><image xlink:href="img/33.png" class="movil"></g>
+		<g class="padre" id="33"><image xlink:href="img/34.png" class="movil"></g>
+		<g class="padre" id="34"><image xlink:href="img/35.png" class="movil"></g>
+		<g class="padre" id="35"><image xlink:href="img/36.png" class="movil"></g>		
+	</svg>
+
+	
+
+</body>
+
+	<audio id="win" src="multimedia/monedas1.mp3"></audio>
+	<audio id="paso"  src="multimedia/monedas2.mp3"></audio>
+	<script type="text/javascript" src="js/main.js"></script>
+	
+</html>

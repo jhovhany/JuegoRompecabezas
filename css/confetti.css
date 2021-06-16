@@ -1,0 +1,86 @@
+/*Simple reset*/
+* {
+    margin: 0;
+    padding: 0;
+}
+body {
+    /*You can use any kind of background here.*/
+    background:#FBBC05;
+}
+
+#content {
+    text-align: center;
+    width: 500px;
+    height: 300px;
+    position: absolute;
+    top: 30%;
+    left: 50%;
+    margin-left: -250px;
+    margin-top: -150px;
+    color: whitesmoke;
+    font-family: verdana;
+    font-size: 45px;
+    font-weight: bold;
+  }
+input {
+    font-size: 45px;
+    font-weight: bold;
+    text-align: center;
+    color: whitesmoke;
+    border: 0px;
+    width: 100%;
+    
+}
+
+p{
+    font-size: 25px;
+    font-weight: bold;
+    text-align: justify;
+    color: rgb(218, 33, 33);
+
+}
+
+.input.yellow{
+    background: #FBBC05;	
+}
+  .button {
+	background:#7f8c8d;
+	color:#fff;
+	display:inline-block;
+	font: size 3;
+	margin:20px;
+	padding:10px 0;
+	text-align:center;
+	width:100px;
+	text-decoration:none;
+    box-shadow:0px 3px 0px #373c3c;
+    border-radius: 5px;
+}
+
+.button span {
+	margin-right:10px;
+}
+ 
+/*Colores*/
+.button.red {
+	background: #B60029;
+	box-shadow:0px 3px 0px#e04667;
+}
+/*Tamaños*/
+.button.medium {
+	width:300px;
+}
+ 
+ 
+.button.large {
+    width:400px;
+    font-size: 30px;
+}
+/*Efectos, Hover*/
+.button:hover {
+	box-shadow:0px 0px 0px;
+	padding-top:7px;
+}
+canvas {
+    display: block;
+}
