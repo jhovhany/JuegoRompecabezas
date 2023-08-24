@@ -116,5 +116,5 @@ function getData(){
 }
 
 function redireccionar(){
-    window.location="http://elatelierdigital.com/";
+    window.location="https://rompecabezas-game.netlify.app/";
   } 
