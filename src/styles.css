@@ -1,0 +1,169 @@
+:root {
+  --bg-main: #dedede;
+  --panel: #f3f3f3;
+  --accent: #ffb940;
+  --accent-strong: #ffda63;
+  --text-muted: rgba(0, 0, 0, 0.6);
+  --danger: #b60029;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: sans-serif;
+}
+
+body {
+  background: var(--bg-main);
+  min-height: 100vh;
+}
+
+.page {
+  min-height: 100vh;
+  width: 100%;
+}
+
+.form-page {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+}
+
+.start-card {
+  width: min(500px, 100%);
+  background: var(--panel);
+  padding: 30px;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  border-radius: 30px;
+}
+
+.start-card h2 {
+  text-align: center;
+  margin-bottom: 20px;
+  color: var(--text-muted);
+}
+
+.start-card input {
+  display: block;
+  width: 100%;
+  margin: 20px 0;
+  padding: 10px;
+  font-size: 20px;
+}
+
+.start-card button {
+  width: 100%;
+  padding: 12px;
+  border: 0;
+  cursor: pointer;
+  border-radius: 20px;
+  color: brown;
+  font-size: 20px;
+  background: linear-gradient(var(--accent-strong), var(--accent));
+}
+
+.puzzle-page {
+  background-color: rgb(195, 255, 127);
+  padding: 10px;
+}
+
+.puzzle-wrap {
+  overflow-x: auto;
+}
+
+#entorno {
+  display: block;
+  margin: 0 auto;
+  touch-action: none;
+}
+
+#fondo {
+  opacity: 0.3;
+}
+
+.congrats-page {
+  position: relative;
+  min-height: 100vh;
+  background: #fbbc05;
+  overflow: hidden;
+}
+
+#canvas {
+  display: block;
+  width: 100%;
+  height: 100vh;
+}
+
+#content {
+  text-align: center;
+  width: min(520px, 95%);
+  position: absolute;
+  top: 18%;
+  left: 50%;
+  transform: translateX(-50%);
+  color: whitesmoke;
+  font-family: verdana, sans-serif;
+  font-size: 40px;
+  font-weight: bold;
+  z-index: 2;
+}
+
+#content .winner-line {
+  display: block;
+  width: 100%;
+  font-size: 38px;
+}
+
+#content p {
+  margin-top: 20px;
+  font-size: 24px;
+  font-weight: bold;
+  text-align: center;
+  color: rgb(218, 33, 33);
+}
+
+.button.large {
+  margin-top: 20px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  width: min(420px, 100%);
+  background: var(--danger);
+  color: #fff;
+  text-decoration: none;
+  padding: 12px;
+  font-size: 30px;
+  border-radius: 5px;
+  box-shadow: 0 3px 0 #e04667;
+}
+
+.button.large:hover {
+  box-shadow: 0 0 0;
+  padding-top: 15px;
+}
+
+@media (max-width: 800px) {
+  .puzzle-page {
+    background-color: rgb(255, 172, 127);
+  }
+
+  #content {
+    top: 10%;
+    font-size: 30px;
+  }
+
+  #content .winner-line {
+    font-size: 30px;
+  }
+
+  #content p {
+    font-size: 20px;
+  }
+
+  .button.large {
+    font-size: 22px;
+  }
+}
