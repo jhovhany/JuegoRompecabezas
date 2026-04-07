@@ -70,6 +70,48 @@ body {
   transition: background-color 0.45s ease;
 }
 
+.progress-panel {
+  width: min(1000px, calc(100% - 20px));
+  margin: 0 auto 14px;
+  padding: 14px 16px;
+  background: rgba(255, 255, 255, 0.68);
+  border: 1px solid rgba(73, 93, 58, 0.12);
+  border-radius: 18px;
+  backdrop-filter: blur(8px);
+}
+
+.progress-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  color: #4b4b39;
+  font-size: 16px;
+}
+
+.progress-track {
+  width: 100%;
+  height: 14px;
+  margin-top: 10px;
+  background: rgba(255, 255, 255, 0.78);
+  border-radius: 999px;
+  overflow: hidden;
+}
+
+.progress-fill {
+  height: 100%;
+  border-radius: inherit;
+  background: linear-gradient(90deg, #68c487, #ffcf70);
+  transition: width 0.35s ease;
+}
+
+.progress-text {
+  margin-top: 8px;
+  color: #5b5b44;
+  font-size: 14px;
+  text-align: right;
+}
+
 .puzzle-wrap {
   overflow-x: auto;
 }
@@ -149,6 +191,14 @@ body {
 @media (max-width: 800px) {
   .puzzle-page {
     background-color: rgb(255, 172, 127);
+  }
+
+  .progress-panel {
+    padding: 12px 14px;
+  }
+
+  .progress-header {
+    font-size: 14px;
   }
 
   #content {

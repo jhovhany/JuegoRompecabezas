@@ -40,6 +40,8 @@ const puzzleBackground = ref(backgroundPalette[0])
 let zCounter = 0
 
 const orderedPieces = computed(() => [...pieces.value].sort((a, b) => a.z - b.z))
+const lockedPieces = computed(() => pieces.value.filter((piece) => piece.locked).length)
+const progressPercent = computed(() => Math.round((lockedPieces.value / 36) * 100))
 
 function updatePuzzleBackground() {
   const availableColors = backgroundPalette.filter((color) => color !== puzzleBackground.value)
@@ -143,6 +145,17 @@ onMounted(() => {
 
 <template>
   <main class="page puzzle-page" :style="{ backgroundColor: puzzleBackground }">
+    <section class="progress-panel" aria-label="Progreso del juego">
+      <div class="progress-header">
+        <strong>Progreso del rompecabezas</strong>
+        <span>{{ lockedPieces }}/36 piezas</span>
+      </div>
+      <div class="progress-track" role="progressbar" :aria-valuenow="progressPercent" aria-valuemin="0" aria-valuemax="100">
+        <div class="progress-fill" :style="{ width: `${progressPercent}%` }"></div>
+      </div>
+      <p class="progress-text">{{ progressPercent }}% completado</p>
+    </section>
+
     <div class="puzzle-wrap">
       <svg
         id="entorno"
