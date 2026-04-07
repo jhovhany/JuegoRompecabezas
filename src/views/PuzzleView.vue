@@ -26,9 +26,26 @@ const targetY = [
 const pieces = ref([])
 const selectedId = ref(null)
 const pointerOffset = ref({ x: 0, y: 0 })
+const backgroundPalette = [
+  '#dff4de',
+  '#fdecc8',
+  '#dff1ff',
+  '#f8dfeb',
+  '#efe3ff',
+  '#ffe3d6',
+  '#e0f6ee',
+  '#f9efc7'
+]
+const puzzleBackground = ref(backgroundPalette[0])
 let zCounter = 0
 
 const orderedPieces = computed(() => [...pieces.value].sort((a, b) => a.z - b.z))
+
+function updatePuzzleBackground() {
+  const availableColors = backgroundPalette.filter((color) => color !== puzzleBackground.value)
+  const nextColor = availableColors[Math.floor(Math.random() * availableColors.length)]
+  puzzleBackground.value = nextColor
+}
 
 function randomizePieces() {
   pieces.value = Array.from({ length: 36 }, (_, i) => ({
@@ -94,6 +111,7 @@ function onPointerUp() {
     piece.x = tx
     piece.y = ty
     piece.locked = true
+    updatePuzzleBackground()
     stepAudio.value?.play().catch(() => {})
   }
 
@@ -124,7 +142,7 @@ onMounted(() => {
 </script>
 
 <template>
-  <main class="page puzzle-page">
+  <main class="page puzzle-page" :style="{ backgroundColor: puzzleBackground }">
     <div class="puzzle-wrap">
       <svg
         id="entorno"

@@ -67,6 +67,7 @@ body {
 .puzzle-page {
   background-color: rgb(195, 255, 127);
   padding: 10px;
+  transition: background-color 0.45s ease;
 }
 
 .puzzle-wrap {
