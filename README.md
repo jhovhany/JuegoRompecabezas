@@ -47,3 +47,9 @@ Disponible en `http://localhost:5173`.
 - Flujo SPA con rutas: `/`, `/juego`, `/felicidades`.
 - Datos de usuario almacenados en `localStorage` (`atelierGameData`).
 - Assets estáticos en `public/img` y `public/multimedia`.
+
+## Interacciones visuales del juego
+
+- Barra de progreso en tiempo real durante el armado del rompecabezas.
+- Cambio de color de fondo cuando una pieza queda correctamente ubicada.
+- Efecto luminoso en el contorno de la pieza seleccionada; el efecto se retira al soltar la pieza.

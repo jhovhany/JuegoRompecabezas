@@ -1,21 +1,31 @@
 :root {
-  --bg-main: #dedede;
-  --panel: #f3f3f3;
-  --accent: #ffb940;
-  --accent-strong: #ffda63;
-  --text-muted: rgba(0, 0, 0, 0.6);
-  --danger: #b60029;
+  --font-ui: 'Avenir Next', 'Nunito', 'Trebuchet MS', 'Segoe UI', sans-serif;
+  --bg-main: #f6ecd9;
+  --bg-soft: #f8e6c5;
+  --panel: #fff7e9;
+  --panel-strong: #ffeac8;
+  --accent: #ef8f3b;
+  --accent-strong: #f3b24a;
+  --accent-deep: #cf5b2f;
+  --text-main: #4d2f1f;
+  --text-muted: #755742;
+  --danger: #c74252;
+  --success: #d86f3b;
 }
 
 * {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
-  font-family: sans-serif;
+  font-family: var(--font-ui);
 }
 
 body {
-  background: var(--bg-main);
+  background:
+    radial-gradient(circle at 14% 14%, rgba(255, 243, 221, 0.85), transparent 42%),
+    radial-gradient(circle at 86% 0%, rgba(247, 204, 149, 0.35), transparent 40%),
+    linear-gradient(145deg, var(--bg-main), var(--bg-soft));
+  color: var(--text-main);
   min-height: 100vh;
 }
 
@@ -35,14 +45,15 @@ body {
   width: min(500px, 100%);
   background: var(--panel);
   padding: 30px;
-  border: 1px solid rgba(0, 0, 0, 0.2);
+  border: 1px solid rgba(176, 107, 43, 0.25);
   border-radius: 30px;
+  box-shadow: 0 12px 30px rgba(120, 73, 33, 0.14);
 }
 
 .start-card h2 {
   text-align: center;
   margin-bottom: 20px;
-  color: var(--text-muted);
+  color: var(--text-main);
 }
 
 .start-card input {
@@ -51,6 +62,10 @@ body {
   margin: 20px 0;
   padding: 10px;
   font-size: 20px;
+  border-radius: 14px;
+  border: 1px solid rgba(180, 119, 56, 0.28);
+  background: rgba(255, 255, 255, 0.85);
+  color: var(--text-main);
 }
 
 .start-card button {
@@ -59,13 +74,15 @@ body {
   border: 0;
   cursor: pointer;
   border-radius: 20px;
-  color: brown;
+  color: #fff;
+  font-weight: 700;
   font-size: 20px;
-  background: linear-gradient(var(--accent-strong), var(--accent));
+  background: linear-gradient(135deg, var(--accent-strong), var(--accent));
+  box-shadow: 0 7px 0 var(--accent-deep);
 }
 
 .puzzle-page {
-  background-color: rgb(195, 255, 127);
+  background-color: var(--panel-strong);
   padding: 10px;
   transition: background-color 0.45s ease;
 }
@@ -74,8 +91,8 @@ body {
   width: min(1000px, calc(100% - 20px));
   margin: 0 auto 14px;
   padding: 14px 16px;
-  background: rgba(255, 255, 255, 0.68);
-  border: 1px solid rgba(73, 93, 58, 0.12);
+  background: rgba(255, 248, 237, 0.72);
+  border: 1px solid rgba(176, 107, 43, 0.2);
   border-radius: 18px;
   backdrop-filter: blur(8px);
 }
@@ -85,7 +102,7 @@ body {
   align-items: center;
   justify-content: space-between;
   gap: 12px;
-  color: #4b4b39;
+  color: var(--text-main);
   font-size: 16px;
 }
 
@@ -93,7 +110,7 @@ body {
   width: 100%;
   height: 14px;
   margin-top: 10px;
-  background: rgba(255, 255, 255, 0.78);
+  background: rgba(255, 255, 255, 0.88);
   border-radius: 999px;
   overflow: hidden;
 }
@@ -101,13 +118,13 @@ body {
 .progress-fill {
   height: 100%;
   border-radius: inherit;
-  background: linear-gradient(90deg, #68c487, #ffcf70);
+  background: linear-gradient(90deg, var(--success), var(--accent-strong));
   transition: width 0.35s ease;
 }
 
 .progress-text {
   margin-top: 8px;
-  color: #5b5b44;
+  color: var(--text-muted);
   font-size: 14px;
   text-align: right;
 }
@@ -126,71 +143,115 @@ body {
   opacity: 0.3;
 }
 
+.movil {
+  transition: filter 0.18s ease;
+}
+
+.piece-selected {
+  filter:
+    drop-shadow(0 0 4px rgba(255, 255, 255, 0.95))
+    drop-shadow(0 0 10px rgba(255, 173, 71, 0.95))
+    drop-shadow(0 0 16px rgba(242, 111, 53, 0.75));
+}
+
 .congrats-page {
   position: relative;
   min-height: 100vh;
-  background: #fbbc05;
+  background:
+    radial-gradient(circle at 15% 20%, rgba(255, 241, 216, 0.58), transparent 45%),
+    radial-gradient(circle at 82% 12%, rgba(246, 177, 108, 0.35), transparent 38%),
+    linear-gradient(135deg, var(--bg-soft) 0%, #f5d7a2 46%, #f2be7f 100%);
   overflow: hidden;
 }
 
 #canvas {
-  display: block;
-  width: 100%;
-  height: 100vh;
-}
-
-#content {
-  text-align: center;
-  width: min(520px, 95%);
   position: absolute;
-  top: 18%;
-  left: 50%;
-  transform: translateX(-50%);
-  color: whitesmoke;
-  font-family: verdana, sans-serif;
-  font-size: 40px;
-  font-weight: bold;
-  z-index: 2;
-}
-
-#content .winner-line {
+  inset: 0;
   display: block;
   width: 100%;
-  font-size: 38px;
+  height: 100%;
+  z-index: 1;
+  pointer-events: none;
 }
 
-#content p {
-  margin-top: 20px;
-  font-size: 24px;
-  font-weight: bold;
+.congrats-card {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 2;
+  width: min(680px, 94%);
+  padding: 34px 30px;
   text-align: center;
-  color: rgb(218, 33, 33);
+  color: var(--text-main);
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.79) 0%, rgba(255, 252, 242, 0.86) 100%);
+  border: 1px solid rgba(176, 107, 43, 0.24);
+  border-radius: 28px;
+  box-shadow: 0 22px 42px rgba(122, 73, 12, 0.24), inset 0 1px 0 rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(8px);
+}
+
+.badge-pill {
+  display: inline-block;
+  margin-bottom: 14px;
+  padding: 7px 14px;
+  border-radius: 999px;
+  background: linear-gradient(90deg, var(--danger), var(--accent));
+  color: #fff;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.congrats-card .winner-line {
+  display: block;
+  font-size: clamp(1.9rem, 4.8vw, 3rem);
+  font-family: var(--font-ui);
+  font-weight: 800;
+  line-height: 1.15;
+  color: var(--text-main);
+}
+
+.winner-amount {
+  margin-top: 10px;
+  font-size: clamp(1.2rem, 3.4vw, 2rem);
+  font-weight: 700;
+  color: var(--accent-deep);
+}
+
+.congrats-card p {
+  margin-top: 16px;
+  font-size: clamp(1rem, 2.6vw, 1.28rem);
+  line-height: 1.55;
+  color: var(--text-muted);
 }
 
 .button.large {
-  margin-top: 20px;
+  margin-top: 22px;
   display: inline-flex;
   align-items: center;
   justify-content: center;
   gap: 8px;
   width: min(420px, 100%);
-  background: var(--danger);
+  background: linear-gradient(135deg, var(--danger), #e35a49);
   color: #fff;
   text-decoration: none;
-  padding: 12px;
-  font-size: 30px;
-  border-radius: 5px;
-  box-shadow: 0 3px 0 #e04667;
+  padding: 13px 16px;
+  font-size: clamp(1.1rem, 3vw, 1.65rem);
+  border-radius: 14px;
+  box-shadow: 0 8px 0 #9e3140;
+  transition: transform 0.22s ease, box-shadow 0.22s ease;
 }
 
 .button.large:hover {
-  box-shadow: 0 0 0;
-  padding-top: 15px;
+  transform: translateY(3px);
+  box-shadow: 0 5px 0 #9e3140;
 }
 
 @media (max-width: 800px) {
   .puzzle-page {
-    background-color: rgb(255, 172, 127);
+    background-color: #f4d5ae;
   }
 
   .progress-panel {
@@ -201,20 +262,13 @@ body {
     font-size: 14px;
   }
 
-  #content {
-    top: 10%;
-    font-size: 30px;
-  }
-
-  #content .winner-line {
-    font-size: 30px;
-  }
-
-  #content p {
-    font-size: 20px;
+  .congrats-card {
+    width: min(650px, 94%);
+    padding: 24px 18px;
+    border-radius: 22px;
   }
 
   .button.large {
-    font-size: 22px;
+    width: 100%;
   }
 }

@@ -35,7 +35,7 @@ function comenzar() {
 <template>
   <main class="page form-page">
     <form class="start-card" @submit.prevent="comenzar">
-      <h2>El Atelier Digital</h2>
+      <h2>Rompecabezas</h2>
       <input
         v-model="form.nombre"
         type="text"

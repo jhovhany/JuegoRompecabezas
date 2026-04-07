@@ -27,14 +27,14 @@ const pieces = ref([])
 const selectedId = ref(null)
 const pointerOffset = ref({ x: 0, y: 0 })
 const backgroundPalette = [
-  '#dff4de',
-  '#fdecc8',
-  '#dff1ff',
-  '#f8dfeb',
-  '#efe3ff',
-  '#ffe3d6',
-  '#e0f6ee',
-  '#f9efc7'
+  '#f8e7ca',
+  '#f9ddb7',
+  '#f6d8aa',
+  '#f4d3a0',
+  '#f8e0bf',
+  '#f3d7b7',
+  '#f9e2c7',
+  '#f5d9b0'
 ]
 const puzzleBackground = ref(backgroundPalette[0])
 let zCounter = 0
@@ -173,7 +173,7 @@ onMounted(() => {
 
         <g v-for="piece in orderedPieces" :key="piece.id" class="padre" :id="String(piece.id)">
           <image
-            class="movil"
+            :class="['movil', { 'piece-selected': selectedId === piece.id }]"
             :href="`/img/${piece.id + 1}.png`"
             :x="piece.x"
             :y="piece.y"

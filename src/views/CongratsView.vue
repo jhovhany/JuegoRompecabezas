@@ -15,6 +15,9 @@ let angle = 0
 let ctx
 let width = 0
 let height = 0
+const handleResize = () => {
+  resizeCanvas(true)
+}
 
 function loadUser() {
   const saved = localStorage.getItem('atelierGameData')
@@ -35,14 +38,17 @@ function loadUser() {
 }
 
 function initParticles() {
-  const total = 250
+  const total = 320
   particles = Array.from({ length: total }, () => ({
     x: Math.random() * width,
     y: Math.random() * height,
-    r: Math.random() * 15 + 1,
+    r: Math.random() * 10 + 2,
     d: Math.random() * total,
     color: `rgba(${Math.floor(Math.random() * 255)}, ${Math.floor(Math.random() * 255)}, ${Math.floor(Math.random() * 255)}, 0.8)`,
-    tilt: Math.floor(Math.random() * 5) - 5
+    tilt: Math.floor(Math.random() * 7) - 6,
+    vx: (Math.random() - 0.5) * 3.2,
+    vy: Math.random() * 2.6 + 2.2,
+    wobble: Math.random() * 0.08 + 0.03
   }))
 }
 
@@ -60,21 +66,26 @@ function draw() {
 }
 
 function update() {
-  angle += 0.01
+  angle += 0.03
 
   for (let i = 0; i < particles.length; i += 1) {
     const p = particles[i]
-    p.y += Math.cos(angle + p.d) + 1 + p.r / 2
-    p.x += Math.sin(angle) * 2
+    p.y += p.vy + Math.cos(angle + p.d) * 0.7
+    p.x += p.vx + Math.sin(angle * 2 + p.d) * 2.4
+    p.tilt += Math.sin(angle + p.d) * p.wobble
 
-    if (p.x > width + 5 || p.x < -5 || p.y > height) {
+    if (p.x > width + 18 || p.x < -18 || p.y > height + 18) {
+      const fromTop = Math.random() < 0.8
       particles[i] = {
-        x: Math.sin(angle) > 0 ? -5 : width + 5,
-        y: Math.random() * height,
+        x: fromTop ? Math.random() * width : Math.sin(angle) > 0 ? -12 : width + 12,
+        y: fromTop ? -12 : Math.random() * height,
         r: p.r,
         d: p.d,
         color: p.color,
-        tilt: p.tilt
+        tilt: Math.floor(Math.random() * 7) - 6,
+        vx: (Math.random() - 0.5) * 3.2,
+        vy: Math.random() * 2.6 + 2.2,
+        wobble: Math.random() * 0.08 + 0.03
       }
     }
   }
@@ -86,14 +97,24 @@ function loop() {
   animationId = requestAnimationFrame(loop)
 }
 
-function setupCanvas() {
+function resizeCanvas(resetParticles = false) {
   const canvas = canvasRef.value
-  ctx = canvas.getContext('2d')
+  if (!canvas) return
+
   width = window.innerWidth
   height = window.innerHeight
   canvas.width = width
   canvas.height = height
-  initParticles()
+
+  if (resetParticles) {
+    initParticles()
+  }
+}
+
+function setupCanvas() {
+  const canvas = canvasRef.value
+  ctx = canvas.getContext('2d')
+  resizeCanvas(true)
   loop()
 }
 
@@ -104,26 +125,32 @@ function restartGame() {
 onMounted(() => {
   if (!loadUser()) return
   setupCanvas()
+  window.addEventListener('resize', handleResize)
 })
 
 onBeforeUnmount(() => {
+  window.removeEventListener('resize', handleResize)
   cancelAnimationFrame(animationId)
 })
 </script>
 
 <template>
   <main class="page congrats-page">
-    <div id="content">
-      <span class="winner-line">¡Felicidades! {{ user.nombre }}</span>
-      <span class="winner-line">¡Mereces ganar! {{ user.cantidad }}</span>
-      <p>Los negocios son como un rompecabezas, tienes que armar pieza por pieza.</p>
+    <section id="content" class="congrats-card" aria-live="polite">
+      <div class="badge-pill">Victoria desbloqueada</div>
+      <h1 class="winner-line">¡Felicidades, {{ user.nombre }}!</h1>
+      <h2 class="winner-amount">Te mereces ganar {{ user.cantidad }}</h2>
+      <p>
+        Los negocios son como un rompecabezas: se construyen con paciencia,
+        estrategia y cada pieza bien colocada.
+      </p>
       <a href="#" class="button large" @click.prevent="restartGame">
         <span>
           <img src="/img/trofeo.svg" width="40" height="40" alt="Trofeo" />
         </span>
-        Comenzar de Nuevo
+        Comenzar de nuevo
       </a>
-    </div>
+    </section>
 
     <canvas id="canvas" ref="canvasRef"></canvas>
   </main>
