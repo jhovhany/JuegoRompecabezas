@@ -34,53 +34,6 @@ body {
   width: 100%;
 }
 
-.form-page {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 16px;
-}
-
-.start-card {
-  width: min(500px, 100%);
-  background: var(--panel);
-  padding: 30px;
-  border: 1px solid rgba(176, 107, 43, 0.25);
-  border-radius: 30px;
-  box-shadow: 0 12px 30px rgba(120, 73, 33, 0.14);
-}
-
-.start-card h2 {
-  text-align: center;
-  margin-bottom: 20px;
-  color: var(--text-main);
-}
-
-.start-card input {
-  display: block;
-  width: 100%;
-  margin: 20px 0;
-  padding: 10px;
-  font-size: 20px;
-  border-radius: 14px;
-  border: 1px solid rgba(180, 119, 56, 0.28);
-  background: rgba(255, 255, 255, 0.85);
-  color: var(--text-main);
-}
-
-.start-card button {
-  width: 100%;
-  padding: 12px;
-  border: 0;
-  cursor: pointer;
-  border-radius: 20px;
-  color: #fff;
-  font-weight: 700;
-  font-size: 20px;
-  background: linear-gradient(135deg, var(--accent-strong), var(--accent));
-  box-shadow: 0 7px 0 var(--accent-deep);
-}
-
 .puzzle-page {
   background-color: var(--panel-strong);
   padding: 10px;

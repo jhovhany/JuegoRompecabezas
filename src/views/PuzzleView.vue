@@ -1,12 +1,11 @@
 <script setup>
-import { computed, onMounted, ref } from 'vue'
+import { computed, onBeforeUnmount, onMounted, ref } from 'vue'
 import { useRouter } from 'vue-router'
 
 const router = useRouter()
 const svgRef = ref(null)
 const winAudio = ref(null)
 const stepAudio = ref(null)
-const playerData = ref({ nombre: '', cantidad: '' })
 
 const pieceWidth = Array(36).fill(185)
 const pieceHeight = Array(36).fill(200)
@@ -26,6 +25,8 @@ const targetY = [
 const pieces = ref([])
 const selectedId = ref(null)
 const pointerOffset = ref({ x: 0, y: 0 })
+const elapsedSeconds = ref(0)
+const timerId = ref(null)
 const backgroundPalette = [
   '#f8e7ca',
   '#f9ddb7',
@@ -42,6 +43,25 @@ let zCounter = 0
 const orderedPieces = computed(() => [...pieces.value].sort((a, b) => a.z - b.z))
 const lockedPieces = computed(() => pieces.value.filter((piece) => piece.locked).length)
 const progressPercent = computed(() => Math.round((lockedPieces.value / 36) * 100))
+const formattedElapsedTime = computed(() => {
+  const minutes = Math.floor(elapsedSeconds.value / 60)
+  const seconds = elapsedSeconds.value % 60
+  return `${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`
+})
+
+function startTimer() {
+  stopTimer()
+  timerId.value = setInterval(() => {
+    elapsedSeconds.value += 1
+  }, 1000)
+}
+
+function stopTimer() {
+  if (timerId.value !== null) {
+    clearInterval(timerId.value)
+    timerId.value = null
+  }
+}
 
 function updatePuzzleBackground() {
   const availableColors = backgroundPalette.filter((color) => color !== puzzleBackground.value)
@@ -118,6 +138,7 @@ function onPointerUp() {
   }
 
   if (pieces.value.every((p) => p.locked)) {
+    stopTimer()
     winAudio.value?.play().catch(() => {})
     setTimeout(() => {
       router.push('/felicidades')
@@ -126,20 +147,12 @@ function onPointerUp() {
 }
 
 onMounted(() => {
-  const saved = localStorage.getItem('atelierGameData')
-  if (!saved) {
-    router.replace('/')
-    return
-  }
-
-  try {
-    playerData.value = JSON.parse(saved)
-  } catch {
-    router.replace('/')
-    return
-  }
-
   randomizePieces()
+  startTimer()
+})
+
+onBeforeUnmount(() => {
+  stopTimer()
 })
 </script>
 
@@ -154,6 +167,7 @@ onMounted(() => {
         <div class="progress-fill" :style="{ width: `${progressPercent}%` }"></div>
       </div>
       <p class="progress-text">{{ progressPercent }}% completado</p>
+      <p class="progress-text">Tiempo: {{ formattedElapsedTime }}</p>
     </section>
 
     <div class="puzzle-wrap">

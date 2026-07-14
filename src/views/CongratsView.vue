@@ -1,13 +1,9 @@
 <script setup>
-import { onBeforeUnmount, onMounted, reactive, ref } from 'vue'
+import { onBeforeUnmount, onMounted, ref } from 'vue'
 import { useRouter } from 'vue-router'
 
 const router = useRouter()
 const canvasRef = ref(null)
-const user = reactive({
-  nombre: '',
-  cantidad: ''
-})
 
 let animationId = 0
 let particles = []
@@ -17,24 +13,6 @@ let width = 0
 let height = 0
 const handleResize = () => {
   resizeCanvas(true)
-}
-
-function loadUser() {
-  const saved = localStorage.getItem('atelierGameData')
-  if (!saved) {
-    router.replace('/')
-    return false
-  }
-
-  try {
-    const parsed = JSON.parse(saved)
-    user.nombre = parsed.nombre || ''
-    user.cantidad = parsed.cantidad || ''
-    return true
-  } catch {
-    router.replace('/')
-    return false
-  }
 }
 
 function initParticles() {
@@ -123,7 +101,6 @@ function restartGame() {
 }
 
 onMounted(() => {
-  if (!loadUser()) return
   setupCanvas()
   window.addEventListener('resize', handleResize)
 })
@@ -138,8 +115,8 @@ onBeforeUnmount(() => {
   <main class="page congrats-page">
     <section id="content" class="congrats-card" aria-live="polite">
       <div class="badge-pill">Victoria desbloqueada</div>
-      <h1 class="winner-line">¡Felicidades, {{ user.nombre }}!</h1>
-      <h2 class="winner-amount">Te mereces ganar {{ user.cantidad }}</h2>
+      <h1 class="winner-line">¡Felicidades!</h1>
+      <h2 class="winner-amount">Completaste el rompecabezas</h2>
       <p>
         Los negocios son como un rompecabezas: se construyen con paciencia,
         estrategia y cada pieza bien colocada.
